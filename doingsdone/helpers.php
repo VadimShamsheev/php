@@ -142,3 +142,8 @@ function include_template($name, array $data = []) {
 
     return $result;
 }
+
+function filterText($str) {
+    $text = htmlspecialchars($str);
+    return $text;
+}

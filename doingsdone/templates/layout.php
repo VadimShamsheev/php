@@ -18,7 +18,7 @@
             </a>
 
             <div class="main-header__side">
-                <a class="main-header__side-item button button--plus open-modal" href="pages/form-task.html">Добавить задачу</a>
+                <a class="main-header__side-item button button--plus open-modal" href="index.php?addTaskURL=1">Добавить задачу</a>
 
                 <div class="main-header__side-item user-menu">
                     <div class="user-menu__data">
@@ -29,9 +29,28 @@
                 </div>
             </div>
         </header>
+        <div class="content">
+            <section class="content__side">
+                <h2 class="content__side-heading">Проекты</h2>
 
-        <?= $content; ?>
-        
+                <nav class="main-navigation">
+                    <ul class="main-navigation__list">
+                        <?php foreach ($category as $value):?>
+                            <li class="main-navigation__list-item <?php if ($value['id']==$filterTable):?>main-navigation__list-item--active<?php endif;?>">
+                                <a class="main-navigation__list-item-link" href="index.php?project=<?=$value['id']?>"><?=$value['category']; ?></a>
+                                <span class="main-navigation__list-item-count">
+                                <?=$value["count"]?>
+                            </span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </nav>
+
+                <a class="button button--transparent button--plus content__side-button"
+                   href="pages/form-project.html" target="project_add">Добавить проект</a>
+            </section>
+            <?= $content; ?>
+        </div>
     </div>
 </div>
 

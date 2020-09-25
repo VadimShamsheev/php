@@ -1,6 +1,3 @@
-<?php
-$nowTime = strtotime('now');
-?>
 <main class="content__main">
                 <h2 class="content__main-heading">Список задач</h2>
 
@@ -33,7 +30,7 @@ $nowTime = strtotime('now');
                                    //$firstDate = timestamp($nowTime) - timestamp($value['Дата выполнения']);
                                 }
                             ?>
-                            <tr <?php if ($value['isDone']==1 && $show_complete_tasks==0):?> hidden <?php endif;?> class="<?php if ($value['isDone']==0) {$taskInput="tasks__item task";} else {$taskInput="tasks__item task task--completed";} print ($taskInput);?> <?php if ($firstDate / 86400 <= 1):?> task--important <?php endif; ?>">
+                            <tr <?php if ($value['isDone']==1 && $show_complete_tasks==0):?> hidden <?php endif;?> class="<?php if ($value['isDone']==0) {$taskInput="tasks__item task";} else {$taskInput="tasks__item task task--completed";} print ($taskInput);?>">
                                 <td class="task__select">
                                     <label class="checkbox task__checkbox">
                                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1" <?php if ($value['isDone'] == 1):?> checked <?php endif;?>>
@@ -42,7 +39,7 @@ $nowTime = strtotime('now');
                                 </td>
 
                                 <td class="task__file">
-                                    <a class="download-link" href="#">Home.psd</a>
+                                    <a class="download-link" href="<?=$value['fileURL'];?>">Home</a>
                                 </td>
 
                                 <td class="task__date">

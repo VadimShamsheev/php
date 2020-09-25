@@ -1,46 +1,6 @@
-<?php
-require_once ("helpers.php");
-require_once ("connect.php");
-function getLastValue ($value) {
-    return $_POST[$value];
-}
-$errorsIds = [];
-$errorsIds = array_column($category, 'id');
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $required = ['name', 'date'];
-    $errors = [];
-
-    $rules = [
-            'name' => function($value) use ($errorsIds) {
-                return validateName($value, 3, 200);
-            },
-            'date' => function($value) {
-                return validateDate($value);
-            }
-    ];
-    $gif = filter_input_array(INPUT_POST, ['name' => FILTER_DEFAULT, 'date' => FILTER_DEFAULT], true);
-
-    foreach ($gif as $key => $value) {
-        if (isset($rules[$key])) {
-            $rule = $rules[$key];
-            $errors[$key] = $rule($value);
-        }
-        if (in_array($key, $required) && empty($value)) {
-            $errors[$key] = "Поле $key надо заполнить";
-        }
-    }
-    $errors = array_filter($errors);
-
-    if (!count($errors)) {
-        addTaskDB($db_connect);
-        header("Location: index.php");
-    }
-}
-?>
 <main class="content__main">
     <h2 class="content__main-heading">Добавление задачи</h2>
-    <form class="form"  action="" method="post" autocomplete="off">
+    <form class="form"  action="addTaskScript.php?name=<?= getPosVal('name'); ?>&date=<?= getPosVal('date'); ?>&file=<?= $_FILES['file']; ?>" method="post" autocomplete="off" enctype="multipart/form-data">
         <div class="form__row">
             <label class="form__label" for="name">Название <sup>*</sup></label>
             <?php $className = isset($errors['name']) ? "form__input--error" : "";?>
@@ -53,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <select class="form__input form__input--select" name="project" id="project">
                 <?php foreach ($category as $value):?>
-                <option value="<?=$value['id']?>"><?=$value['category']?></option>
+                <option value="<?=$value['id']?>" <?php if ($value['id'] == $_GET['filtertable']):?> selected <?php endif;?>><?=$value['category']?></option>
                 <?php endforeach;?>
             </select>
         </div>
@@ -62,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label class="form__label" for="date">Дата выполнения</label>
             <?php $className = isset($errors['date']) ? "form__input--error" : ""; ?>
             <input class="form__input form__input--date <?= $className; ?>" type="text" name="date" id="date" value="<?= getPosVal('date'); ?>" placeholder="Введите дату в формате ГГГГ-ММ-ДД">
+            <?php if (isset($errors['date'])): ?> <p class="form__message"><?= $errors['date']; ?></p> <?php endif;?>
         </div>
 
         <div class="form__row">

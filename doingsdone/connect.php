@@ -1,5 +1,6 @@
 <?php
 require_once ("dataConnect.php");
+
 $show_complete_tasks = $_GET['show_completed'];
 function getCategory($db_connect){
     $sql = "SELECT projects.id, projects.name, (SELECT count(id) from tasks where tasks.category=projects.id) from projects";

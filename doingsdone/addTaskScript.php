@@ -1,7 +1,6 @@
 <?php
 require_once ('connect.php');
 $errors = [];
-
 if (empty($_POST['name'])){
     $errors['name'] = 'Поле не заполнено';
 }

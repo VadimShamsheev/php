@@ -148,3 +148,25 @@ function filterText($str) {
     return $text;
 }
 
+function validateName ($value, $min, $max) {
+    if ($value) {
+        $len = strlen($value);
+        if ($len < $min || $len > $max){
+            return "Значение должно быть в пределе $min и $max символов";
+        }
+    }
+    return null;
+}
+
+function validateDate ($value) {
+    $inDate = strtotime($value);
+    $todayDate = strtotime(date('Y-m-d'));
+    if ($inDate < $todayDate) {
+        return "Дата не должна быть меньше текущей";
+    }
+    return null;
+}
+
+function getPosVal ($name) {
+    return filter_input(INPUT_POST, $name);
+}

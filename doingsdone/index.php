@@ -15,6 +15,7 @@ if ($_GET['addTaskURL']==1){
         'category' => $category,
         'tableTask' => $tableTask,
         'result' => $rows2,
+        'db_connect' => $db_connect,
     ]);
 }
 else {

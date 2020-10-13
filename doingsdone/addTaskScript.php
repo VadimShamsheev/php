@@ -2,7 +2,7 @@
 require_once ("helpers.php");
 require_once ("connect.php");
 $errorsIds = [];
-$errorsIds = array_column($category, 'id');
+//$errorsIds = array_column($category, 'id');
 $selectedCat = 0;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $required = ['name', 'date'];
@@ -37,10 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!count($errors)) {
         if (isset($_FILES['file'])) { move_uploaded_file($_FILES['file']['tmp_name'], $filePath . $fileName); }
         $selectedCat = $_POST['project'];
-        addTaskDB($db_connect, $fileURL);
+        addTaskDB($db_connect);
         header("Location: index.php?project=$selectedCat");
     }
     else {
-        header("Location: index.php?addTaskURL=1");
+        //header("Location: index.php?addTaskURL=1");
+        print($_POST['name']);
     }
 }

@@ -41,9 +41,9 @@ function getTask($db_connect, $filterTable, $category){
     }
 }
 
-function addTaskDB($db_connect, $file){
-    $sql = "INSERT INTO tasks (name, date, isDone, category, fileURL) values (?, ?, 0, ?, ?)";
+function addTaskDB($db_connect){
+    $sql = "INSERT INTO tasks (name, date, isDone, category) values (?, ?, 0, ?)";
     $stmt = mysqli_prepare($db_connect, $sql);
-    mysqli_stmt_bind_param($stmt, 'ssis', $_POST['name'], $_POST['date'], $_POST['project'], $file);
+    mysqli_stmt_bind_param($stmt, 'ssi', $_POST['name'], $_POST['date'], $_POST['project']);
     mysqli_stmt_execute($stmt);
 }
